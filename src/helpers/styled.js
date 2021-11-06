@@ -1,6 +1,6 @@
 import React from 'react';
 
-const getRandomClassname = () => Math.random().toString(36).substr(2, 5);
+const getRandomClassname = () => `styled-${Math.random().toString(36).substr(2, 5)}`;
 
 const setStyles = (styles) => {
     const className = getRandomClassname();
@@ -22,12 +22,30 @@ const createStyles = (strings, callbacks, values) => strings.reduce((acc, value,
 
 
 const styled = {
+    h1: (strings, ...stylesProps) => {    
+        return ({ children, ...componentProps }) => {
+            const resultString = createStyles(strings, stylesProps, componentProps);
+            const styles = setStyles(resultString);
+
+            return <h1 className={styles} {...componentProps}>{children}</h1>
+        }
+    },
+
+    p: (strings, ...stylesProps) => {    
+        return ({ children, ...componentProps }) => {
+            const resultString = createStyles(strings, stylesProps, componentProps);
+            const styles = setStyles(resultString);
+
+            return <p className={styles} {...componentProps}>{children}</p>
+        }
+    },
+
     div: (strings, ...stylesProps) => {    
         return ({ children, ...componentProps }) => {
             const resultString = createStyles(strings, stylesProps, componentProps);
             const styles = setStyles(resultString);
 
-            return <div className={styles}>{children}</div>
+            return <div className={styles} {...componentProps}>{children}</div>
         }
     },
     button: (strings, ...stylesProps) => {    
@@ -35,7 +53,7 @@ const styled = {
             const resultString = createStyles(strings, stylesProps, componentProps);
             const styles = setStyles(resultString);
 
-            return <button className={styles}>{children}</button>
+            return <button className={styles} {...componentProps}>{children}</button>
         }
     },
 };

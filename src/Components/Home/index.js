@@ -1,44 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import logo from '../../assets/logo.svg';
-import './styled.css';
-
-import styled from '../../helpers/styled';
-
-const Div = styled.div`
-  background-color: red;
-  color: ${(props) => props.color};
-  text-decoration: ${(props) => props.isLink ? 'underline' : 'none'};
-`;
-
-const PlainButton = styled.button`
-  cursor: pointer;
-  font-size: 18px;
-  margin-top: 10px;
-  border-radius: 6px;
-  padding: 10px 20px;
-  background-color: transparent;
-  color: ${(props) => props.type === 'plain' ? 'white' : 'yellow' };
-  border: 1px solid ${(props) => props.type === 'plain' ? 'white' : 'yellow' };;
-`;
+import {
+  Title,
+  Result,
+  Wrapper,
+  PlainButton,
+  ButtonsWrapper,
+} from './styled';
 
 const App = () => {
+  const [result, setResult] = useState(null);
+
+  const onClick = (value) => {
+    setResult(value === 'like' ? '👌' : '😝');
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Div color="white">my div</Div>
-        <PlainButton type="color">My button</PlainButton>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper>
+      <Title color="#ff79d5">styled-components 💅</Title>
+      {result
+        ? <Result>{result}</Result>
+        : (
+          <ButtonsWrapper>
+            <PlainButton onClick={() => onClick('like')} type="plain">🤍</PlainButton>
+            <PlainButton onClick={() => onClick('dislike')} type="plain">👎</PlainButton>
+          </ButtonsWrapper>
+        )}
+    </Wrapper>
   );
 };
 
