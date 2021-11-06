@@ -27,6 +27,14 @@ const styled = {
             const resultString = createStyles(strings, stylesProps, componentProps);
             const styles = setStyles(resultString);
 
+            if (componentProps.hasOwnProperty('as')) {
+                return React.createElement(
+                    componentProps.as,
+                    { className: styles, ...componentProps },
+                    children,
+                );
+            }
+
             return <h1 className={styles} {...componentProps}>{children}</h1>
         }
     },
@@ -35,6 +43,14 @@ const styled = {
         return ({ children, ...componentProps }) => {
             const resultString = createStyles(strings, stylesProps, componentProps);
             const styles = setStyles(resultString);
+
+            if (componentProps.hasOwnProperty('as')) {
+                return React.createElement(
+                    componentProps.as,
+                    { className: styles, ...componentProps },
+                    children,
+                );
+            }
 
             return <p className={styles} {...componentProps}>{children}</p>
         }
@@ -45,6 +61,14 @@ const styled = {
             const resultString = createStyles(strings, stylesProps, componentProps);
             const styles = setStyles(resultString);
 
+            if (componentProps.hasOwnProperty('as')) {
+                return React.createElement(
+                    componentProps.as,
+                    { className: styles, ...componentProps },
+                    children,
+                );
+            }
+
             return <div className={styles} {...componentProps}>{children}</div>
         }
     },
@@ -52,6 +76,14 @@ const styled = {
         return ({ children, ...componentProps }) => {
             const resultString = createStyles(strings, stylesProps, componentProps);
             const styles = setStyles(resultString);
+
+            if (componentProps.hasOwnProperty('as')) {
+                return React.createElement(
+                    componentProps.as,
+                    { className: styles, ...componentProps },
+                    children,
+                );
+            }
 
             return <button className={styles} {...componentProps}>{children}</button>
         }

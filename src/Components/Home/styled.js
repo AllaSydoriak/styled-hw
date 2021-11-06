@@ -34,6 +34,6 @@ export const ButtonsWrapper = styled.div`
 `;
 
 export const Result = styled.p`
-  font-size: 50px;
   margin: 0;
+  font-size: 50px;
 `;
