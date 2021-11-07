@@ -13,81 +13,42 @@ const setStyles = (styles) => {
 };
 
 const createStyles = (strings, callbacks, values) => strings.reduce((acc, value, index) => {
-    if(callbacks.length > index) {
+    if (callbacks.length > index) {
         const style = callbacks[index](values);
         return `${acc}${value}${style}`;
     }
     return `${acc}${value}`;
 }, '');
 
+const createElement = (type) => (strings, ...stylesProps) => {
+    return ({ children, ...componentProps }) => {
+        const resultString = createStyles(strings, stylesProps, componentProps);
+        const styles = setStyles(resultString);
+
+        return React.createElement(
+            componentProps.hasOwnProperty('as') ? componentProps.as : type,
+            { className: styles, ...componentProps },
+            children,
+        );
+    }
+}
 
 const styled = {
-    h1: (strings, ...stylesProps) => {    
-        return ({ children, ...componentProps }) => {
-            const resultString = createStyles(strings, stylesProps, componentProps);
-            const styles = setStyles(resultString);
+    p: createElement('p'),
+    
+    a: createElement('a'),
 
-            if (componentProps.hasOwnProperty('as')) {
-                return React.createElement(
-                    componentProps.as,
-                    { className: styles, ...componentProps },
-                    children,
-                );
-            }
+    h1: createElement('h1'),
+    
+    div: createElement('div'),
+    
+    span: createElement('span'),
 
-            return <h1 className={styles} {...componentProps}>{children}</h1>
-        }
-    },
+    button: createElement('button'),
 
-    p: (strings, ...stylesProps) => {    
-        return ({ children, ...componentProps }) => {
-            const resultString = createStyles(strings, stylesProps, componentProps);
-            const styles = setStyles(resultString);
+    header: createElement('header'),
 
-            if (componentProps.hasOwnProperty('as')) {
-                return React.createElement(
-                    componentProps.as,
-                    { className: styles, ...componentProps },
-                    children,
-                );
-            }
-
-            return <p className={styles} {...componentProps}>{children}</p>
-        }
-    },
-
-    div: (strings, ...stylesProps) => {    
-        return ({ children, ...componentProps }) => {
-            const resultString = createStyles(strings, stylesProps, componentProps);
-            const styles = setStyles(resultString);
-
-            if (componentProps.hasOwnProperty('as')) {
-                return React.createElement(
-                    componentProps.as,
-                    { className: styles, ...componentProps },
-                    children,
-                );
-            }
-
-            return <div className={styles} {...componentProps}>{children}</div>
-        }
-    },
-    button: (strings, ...stylesProps) => {    
-        return ({ children, ...componentProps }) => {
-            const resultString = createStyles(strings, stylesProps, componentProps);
-            const styles = setStyles(resultString);
-
-            if (componentProps.hasOwnProperty('as')) {
-                return React.createElement(
-                    componentProps.as,
-                    { className: styles, ...componentProps },
-                    children,
-                );
-            }
-
-            return <button className={styles} {...componentProps}>{children}</button>
-        }
-    },
+    footer: createElement('footer'),
 };
 
 export default styled;
